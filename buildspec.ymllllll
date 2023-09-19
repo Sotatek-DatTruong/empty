@@ -1,0 +1,51 @@
+version: 0.2
+
+env:
+  # shell: bash
+  parameter-store:
+    VAR1: "NAMEE"
+    VAR2: "NOW"
+    VAR3: "ALL"
+  variables:
+    APP_ENV: "APP_ENV"
+    REGION : "ap-northeast-1"
+phases:
+  pre_build:
+    commands:
+  #     - echo Connecting to Amazon ECR...
+  #     - aws --version
+  #     # - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - aws ecr get-login-password --region ap-northeast-1 | docker login
+        --username AWS --password-stdin
+        910760619310.dkr.ecr.ap-northeast-1.amazonaws.com
+      - REPOSITORY_URI=910760619310.dkr.ecr.ap-northeast-1.amazonaws.com/test-ecr-dev-proj-123
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - echo $VAR2 AND $VAR1
+      # - echo $VAR3 > .env
+      - aws ssm get-parameter --with-decryption --name $APP_ENV --region $REGION | jq -r '.Parameter.Value' > .env
+      - cat .env
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+  post_build:
+    commands:
+#       - echo Build completed on `date`
+#       - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+#       - echo Writing image definitions file...
+#       - printf '[{"name":"simple-app","imageUri":"%s"}]'
+#         $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+#       - cat imagedefinitions.json
+# artifacts:
+#   files: imagedefinitions.json
+
+      - printf '[{"name":"container01","imageUri":"%s"}]'
+        $REPOSITORY_URI:latest > imagedefinitions.json
+      - cat imagedefinitions.json
+artifacts:
+  files: imagedefinitions.json
