@@ -4,7 +4,7 @@ hello các `b hnay mình` sẽ D
 ![image](https://github.com/Sotatek-DatTruong/empty/assets/142764096/e8840362-e05d-478b-9946-0efc54423d85)
 
 ## các b nhìn xem 
-
+- [Config credential](https://docs.aws.amazon.com/cli/latest/reference/configure/#examples) for your aws account
 ```
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
