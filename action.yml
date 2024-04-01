@@ -1,0 +1,25 @@
+name: 'Build Docker Image'
+description: 'Build Docker Image'
+
+inputs:
+  micro-service-name:
+    description: for service Name
+    required: true
+  sub-service-name:
+    description: for image Name
+    required: true
+
+outputs:
+  image-path:
+    value: ${{ steps.retag-push-to-ecr.outputs.image-path }}
+
+runs:
+  using: 'composite'
+  steps:
+
+    - name: Load cached Docker image
+      id: retag-push-to-ecr
+      run: |
+          echo "Truong Cong Dat is ${{ inputs.micro-service-name }}"
+          echo "image-path=${{ inputs.micro-service-name }}/${{ inputs.sub-service-name }}" >> $GITHUB_OUTPUT
+      shell: bash
