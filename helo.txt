@@ -1,0 +1,7 @@
+ListImages
+GetRepositoryPolicy
+GetDownloadUrlForLayer
+DescribeRepositories
+DescribeImages
+BatchGetImage
+BatchCheckLayerAvailabilit
