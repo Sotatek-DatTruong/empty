@@ -19,3 +19,5 @@ subjects:
   name: admin-user
   namespace: kubernetes-dashboard
 ```
+
+Nothing in here
