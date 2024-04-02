@@ -20,6 +20,6 @@ runs:
     - name: Load cached Docker image
       id: retag-push-to-ecr
       run: |
-          echo "Truong Cong Dat is ${{ inputs.micro-service-name }}"
+          echo "Truong Cong Datttttttttttttttt is ${{ inputs.micro-service-name }}"
           echo "image-path=${{ inputs.micro-service-name }}/${{ inputs.sub-service-name }}" >> $GITHUB_OUTPUT
       shell: bash
