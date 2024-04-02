@@ -22,4 +22,7 @@ runs:
       run: |
           echo "Truong Cong Datttttttttttttttt is ${{ inputs.micro-service-name }}"
           echo "image-path=${{ inputs.micro-service-name }}/${{ inputs.sub-service-name }}" >> $GITHUB_OUTPUT
+          echo
+          toi
+          la dat
       shell: bash
