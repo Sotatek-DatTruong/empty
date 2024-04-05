@@ -21,5 +21,6 @@ runs:
       id: retag-push-to-ecr
       run: |
           echo "Truong Cong Dat is ${{ inputs.micro-service-name }}"
+          echo "tao dang test is ${{ env.NAME_NOW }}"
           echo "image-path=${{ inputs.micro-service-name }}/${{ inputs.sub-service-name }}" >> $GITHUB_OUTPUT
       shell: bash
